@@ -1,0 +1,70 @@
+<!-- users table -->
+<users>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <Names type="varchar(100)"/>
+    <Genders type="varchar(30)"/>
+    <Emails type="varchar(100)"/>
+    <Passwords type="varchar(60)"/>
+    <AccessLevels type="boolean"/>
+</users>
+
+<!-- Handbooks table -->
+<Handbooks>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <AssociatedProductIds type="integer" reference="Products.Ids"/>
+    <Names type="varchar(100)"/>
+    <Descriptions type="varchar(200)"/>
+    <UploadDates type="timestamp"/>
+    <AdditionalFilesIds type="integer" reference="AdditionalFiles.Ids"/>
+    <PublicationDates type="timestamp"/>
+</Handbooks>
+
+<!-- Tasks table -->
+<Tasks>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <AssemblerIds type="integer" reference="users.Ids"/>
+    <AssociatedHandbookIds type="integer" reference="Handbooks.Ids"/>
+    <IsFinished type="boolean"/>
+    <UploadDates type="timestamp"/>
+    <Priorities type="varchar"/>
+    <AssociatedAdminIds type="integer" reference="users.Ids"/>
+</Tasks>
+
+<!-- Favorites table -->
+<Favorites>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <UserIds type="integer" reference="users.Ids"/>
+    <HandbookIds type="integer" reference="Handbooks.Ids"/>
+    <HandbookDescriptions type="varchar(200)"/>
+    <HandbookNames type="varchar(100)"/>
+</Favorites>
+
+<!-- AssembleLine table -->
+<AssembleLine>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <Names type="varchar(100)"/>
+    <Descriptions type="varchar"/>
+    <AssociatedAdministratorId type="integer" reference="users.Ids"/>
+</AssembleLine>
+
+<!-- Products table -->
+<Products>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <Names type="varchar(100)"/>
+    <AssociatedAssembleLineId type="integer" reference="AssembleLine.Ids"/>
+</Products>
+
+<!-- AdditionalFiles table -->
+<AdditionalFiles>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <AssociatedPublicationDates type="timestamp"/>
+    <TypesOfFiles type="varchar(100)"/>
+    <FilesPath type="varchar(100)"/>
+</AdditionalFiles>
+
+<!-- HandbookVersion table -->
+<HandbookVersion>
+    <Ids type="integer" pk="true" increments="true" unique="true"/>
+    <AssociatedPublicationDates type="timestamp" reference="Handbooks.PublicationDates"/>
+    <AssociatedHandbookIds type="integer" reference="Handbooks.Ids"/>
+</HandbookVersion>
